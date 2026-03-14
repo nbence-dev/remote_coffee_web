@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
+import { DELETE } from "@/app/api/admin/login/route";
 
 const AddCoffeeShopForm: React.FC = () => {
   const router = useRouter();
@@ -56,6 +57,24 @@ const AddCoffeeShopForm: React.FC = () => {
       setIsSubmitting(false);
     }
   }
+  const [isLoggingOut, setIsLoggingOut] = React.useState(false);
+  const handleLogout = async () => {
+    setError(null);
+    setIsLoggingOut(true);
+
+    try {
+      const res = await fetch("api/admin/login", { method: "DELETE" });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        setError(data?.error ?? "Logout failed");
+        return;
+      }
+      router.replace("/");
+      router.refresh();
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
 
   return (
     <div className="mt-8 rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
@@ -176,14 +195,21 @@ const AddCoffeeShopForm: React.FC = () => {
             {error}
           </p>
         )}
-
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="inline-flex items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-400"
-        >
-          {isSubmitting ? "Saving..." : "Add coffee shop"}
-        </button>
+        <div className="flex gap-100 ">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className="flex-1 items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-400"
+          >
+            {isSubmitting ? "Saving..." : "Add coffee shop"}
+          </button>
+          <button
+            onClick={handleLogout}
+            className="flex-1 items-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-400"
+          >
+            Logout
+          </button>
+        </div>
       </form>
     </div>
   );
