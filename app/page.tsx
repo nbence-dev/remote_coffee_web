@@ -3,6 +3,8 @@ import CoffeeShopList from "@/components/coffee/CoffeeShopList";
 import AddCoffeeShopForm from "@/components/coffee/AddCoffeeShopForm";
 import { ADMIN_SESSION_COOKIE } from "@/lib/auth";
 import { cookies } from "next/headers";
+import { Footer } from "@/components/layout/Footer";
+import { Hero } from "@/components/layout/Hero";
 
 export default async function Home() {
   const shops = await listCoffeeShops();
@@ -12,9 +14,7 @@ export default async function Home() {
   return (
     <main className="min-h-screen bg-zinc-50 text-zinc-900">
       <section className="mx-auto max-w-3xl px-4 py-12">
-        <h1 className="mb-6 text-3xl font-semibold">
-          Remote-Friendly Coffee Spots
-        </h1>
+        <Hero />
         <CoffeeShopList shops={shops} />
         {isAdmin ? (
           <AddCoffeeShopForm />
@@ -28,6 +28,7 @@ export default async function Home() {
           </p>
         )}
       </section>
+      <Footer />
     </main>
   );
 }
