@@ -1,5 +1,6 @@
 import { listCoffeeShops } from "@/lib/repositories/coffeeShopsRepository";
 import CoffeeShopList from "@/components/coffee/CoffeeShopList";
+import AddCoffeeShopForm from "@/components/coffee/AddCoffeeShopForm";
 
 export default async function Home() {
   const shops = await listCoffeeShops();
@@ -11,6 +12,7 @@ export default async function Home() {
           Remote-Friendly Coffee Spots
         </h1>
         <CoffeeShopList shops={shops} />
+        <AddCoffeeShopForm />
       </section>
     </main>
   );
