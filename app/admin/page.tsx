@@ -1,10 +1,12 @@
 import AdminLoginForm from "@/components/admin/AdminLoginForm";
+import { GoToHome } from "@/components/common/AdminHomeButton";
 import { ADMIN_SESSION_COOKIE } from "@/lib/auth";
 import { cookies } from "next/headers";
 
 export default async function AdminPage() {
   const cookieStore = await cookies();
   const isAdmin = Boolean(cookieStore.get(ADMIN_SESSION_COOKIE));
+
   return (
     <main className="min-h-screen bg-zinc-50 flex items-center justify-center px-4">
       {isAdmin ? (
@@ -16,6 +18,7 @@ export default async function AdminPage() {
             Head back to the home page to add or manage remote‑friendly coffee
             spots.
           </p>
+          <GoToHome />
         </div>
       ) : (
         <AdminLoginForm />
