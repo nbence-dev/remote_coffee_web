@@ -80,7 +80,7 @@ const AdminLoginForm: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex w-full items-center justify-center rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-400"
+              className="inline-flex w-full items-center justify-center rounded-md bg-[#4a2c1a] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#4a2c1a]/80 disabled:cursor-not-allowed disabled:bg-[#4a2c1a]/60"
             >
               {isSubmitting ? "Signing in..." : "Sign in"}
             </button>

@@ -15,7 +15,7 @@ const CoffeeShopList: React.FC<CoffeeShopListProps> = ({ shops }) => {
   }
 
   return (
-    <ul className="space-y-3">
+    <ul className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {shops.map((shop) => (
         <CoffeeShopCard key={shop.id} shop={shop} />
       ))}

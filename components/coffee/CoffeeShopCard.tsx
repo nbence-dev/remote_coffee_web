@@ -1,4 +1,6 @@
+import { MapPin, ExternalLink } from "lucide-react";
 import type { CoffeeShop } from "@/lib/types";
+import { RatingDisplay } from "../common/RatingDisplay";
 
 type CoffeeShopCardProps = {
   shop: CoffeeShop;
@@ -6,22 +8,35 @@ type CoffeeShopCardProps = {
 
 const CoffeeShopCard: React.FC<CoffeeShopCardProps> = ({ shop }) => {
   return (
-    <li className="rounded-lg border border-zinc-200 bg-white p-4 shadow-sm">
-      <div className="flex items-baseline justify-between">
-        <h2 className="text-lg font-medium">{shop.name}</h2>
-        <span className="text-sm text-zinc-500">
-          ☕ {shop.coffeeRating} · 📶 {shop.wifiRating} · 💻 {shop.workRating}
-        </span>
+    <li className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-[#e8dfd6] list-none">
+      <div className="flex items-start justify-between mb-4">
+        <h3 className="text-xl text-[#4a2c1a]">{shop.name}</h3>
       </div>
+
+      <div className="space-y-3 mb-4">
+        <RatingDisplay type="coffee" rating={shop.coffeeRating} />
+        <RatingDisplay type="wifi" rating={shop.wifiRating} />
+        <RatingDisplay type="work" rating={shop.workRating} />
+      </div>
+
+      {shop.notes && (
+        <p className="mb-4 text-sm text-[#6b5444]">{shop.notes}</p>
+      )}
+
+      <div className="flex items-start gap-2 mb-4 text-[#6b5444]">
+        <MapPin className="w-4 h-4 mt-1 flex-shrink-0" />
+        <p className="text-sm break-all">{shop.mapsUrl}</p>
+      </div>
+
       <a
         href={shop.mapsUrl}
         target="_blank"
-        rel="noreferrer"
-        className="mt-2 inline-block text-sm text-blue-600 hover:underline"
+        rel="noopener noreferrer"
+        className="inline-flex items-center gap-2 px-4 py-2 bg-[#4a2c1a] text-[#faf8f5] rounded-lg hover:bg-[#5c361f] transition-colors"
       >
-        View on Google Maps
+        <span>Open in Google Maps</span>
+        <ExternalLink className="w-4 h-4" />
       </a>
-      {shop.notes && <p className="mt-2 text-sm text-zinc-600">{shop.notes}</p>}
     </li>
   );
 };
